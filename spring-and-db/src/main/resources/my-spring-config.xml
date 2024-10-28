@@ -6,10 +6,6 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- bean definitions here -->
-	<bean id="hello" class="com.seclore.demo.HelloWorld" scope="prototype" />
-	
-	<!-- loading annotated beans -->
 	<context:component-scan base-package="com.seclore.demo" />
 	
 </beans>
