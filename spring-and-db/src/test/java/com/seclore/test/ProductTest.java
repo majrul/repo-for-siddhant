@@ -19,7 +19,7 @@ public class ProductTest {
 	@BeforeAll
 	static void init() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("my-spring-config.xml");
-		inv = (ProductInventory) ctx.getBean("prodInv1");		
+		inv = (ProductInventory) ctx.getBean("prodInv2");		
 	}
 	
 	@Test
@@ -36,7 +36,7 @@ public class ProductTest {
 	@Test
 	void fetch() {
 		List<Product> list = inv.fetchAll();
-		//list.forEach(System.out::println);
+		list.forEach(System.out::println);
 		//no println to be used in test cases
 		assertTrue(list.size() > 0);
 	}

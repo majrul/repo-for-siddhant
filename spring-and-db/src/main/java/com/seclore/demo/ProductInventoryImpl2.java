@@ -1,28 +1,28 @@
 package com.seclore.demo;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-//TODO: create table product(id int primary key auto_increment, name varchar(20), price double, quantity int);
+@Component("prodInv2")
+public class ProductInventoryImpl2 implements ProductInventory {
 
-@Component("prodInv1")
-public class ProductInventoryImpl1 implements ProductInventory {
-
+	@Autowired //DI
+	private DataSource dataSource;
+	
 	@Override
 	public void add(Product product) {
 		Connection conn = null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			//Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "passw0rd");
-			//conn = DriverManager.getConnection("jdbc:h2:~/training", "sa", "");
+			conn = dataSource.getConnection();
 			String sql = "insert into product(name, price, quantity) values(?, ?, ?)";
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, product.getName());
@@ -30,7 +30,7 @@ public class ProductInventoryImpl1 implements ProductInventory {
 			st.setInt(3, product.getQuantity());
 			st.executeUpdate();
 		}
-		catch (ClassNotFoundException | SQLException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 		finally {
@@ -43,10 +43,7 @@ public class ProductInventoryImpl1 implements ProductInventory {
 		Connection conn = null;
 		List<Product> list = new ArrayList<Product>();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			//Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "passw0rd");
-			//conn = DriverManager.getConnection("jdbc:h2:~/training", "sa", "");
+			conn = dataSource.getConnection();
 			String sql = "select * from product";
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
@@ -60,7 +57,7 @@ public class ProductInventoryImpl1 implements ProductInventory {
 			}
 			return list;
 		}
-		catch (ClassNotFoundException | SQLException e) {
+		catch (SQLException e) {
 			e.printStackTrace();
 			return list;
 		}
