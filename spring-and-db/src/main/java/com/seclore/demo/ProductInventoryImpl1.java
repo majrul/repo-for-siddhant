@@ -21,8 +21,11 @@ public class ProductInventoryImpl1 implements ProductInventory {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//Class.forName("org.h2.Driver");
+			long ms1 = System.currentTimeMillis();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "passw0rd");
 			//conn = DriverManager.getConnection("jdbc:h2:~/training", "sa", "");
+			long ms2 = System.currentTimeMillis();
+			System.out.println("approx time to connect " + (ms2 - ms1) + " ms");
 			String sql = "insert into product(name, price, quantity) values(?, ?, ?)";
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, product.getName());
@@ -45,7 +48,13 @@ public class ProductInventoryImpl1 implements ProductInventory {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//Class.forName("org.h2.Driver");
+			
+			//long ms1 = System.currentTimeMillis();
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "passw0rd");
+			//conn = DriverManager.getConnection("jdbc:h2:~/training", "sa", "");
+			//long ms2 = System.currentTimeMillis();
+			//System.out.println("approx time to connect " + (ms2 - ms1) + " ms");
+
 			//conn = DriverManager.getConnection("jdbc:h2:~/training", "sa", "");
 			String sql = "select * from product";
 			PreparedStatement st = conn.prepareStatement(sql);
