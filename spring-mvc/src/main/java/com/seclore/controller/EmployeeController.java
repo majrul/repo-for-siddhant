@@ -1,5 +1,6 @@
 package com.seclore.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -55,4 +56,10 @@ public class EmployeeController {
 		}
 	}
 	
+	@RequestMapping("/get-all-emps")
+	public String get(Map model) {
+		List<Employee> list = employeeRepository.findAll();
+		model.put("listOfEmps", list);
+		return "viewAllEmps.jsp";
+	}
 }
