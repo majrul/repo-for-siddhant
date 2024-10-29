@@ -34,4 +34,3 @@ public class ProductInventoryImpl3a implements ProductInventory {
 	}
 
 }
-

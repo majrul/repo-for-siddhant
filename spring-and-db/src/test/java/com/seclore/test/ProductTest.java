@@ -20,7 +20,7 @@ public class ProductTest {
 	@BeforeAll
 	static void init() {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("my-spring-config.xml");
-		inv = (ProductInventory) ctx.getBean("prodInv3a");		
+		inv = (ProductInventory) ctx.getBean("prodInv4");		
 	}
 	
 	@Test
