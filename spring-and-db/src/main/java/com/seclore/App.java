@@ -12,7 +12,7 @@ public class App {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("my-spring-config.xml");
-		ProductInventory inv = (ProductInventory) ctx.getBean("prodInv1");
+		ProductInventory inv = (ProductInventory) ctx.getBean("prodInv3a");
 		
 		/*Product product = new Product();
 		product.setName("Samsung S24");
@@ -20,7 +20,11 @@ public class App {
 		product.setQuantity(50);
 		inv.add(product);*/
 		
-		List<Product> list = inv.fetchAll();
-		list.forEach(System.out::println);
+		for(int i=0; i<5; i++) {
+			long ms1 = System.currentTimeMillis();
+			List<Product> list = inv.fetchAll();
+			long ms2 = System.currentTimeMillis();
+			System.out.println("approx time taken to fetch " + (ms2 - ms1) + " ms");
+		}
 	}
 }

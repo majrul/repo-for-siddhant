@@ -22,7 +22,11 @@ public class ProductInventoryImpl2 implements ProductInventory {
 	public void add(Product product) {
 		Connection conn = null;
 		try {
+			long ms1 = System.currentTimeMillis();
 			conn = dataSource.getConnection();
+			long ms2 = System.currentTimeMillis();
+			System.out.println("approx time to connect " + (ms2 - ms1) + " ms");
+			
 			String sql = "insert into product(name, price, quantity) values(?, ?, ?)";
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, product.getName());
@@ -43,9 +47,18 @@ public class ProductInventoryImpl2 implements ProductInventory {
 		Connection conn = null;
 		List<Product> list = new ArrayList<Product>();
 		try {
+			long ms1 = System.currentTimeMillis();
 			conn = dataSource.getConnection();
+			long ms2 = System.currentTimeMillis();
+			System.out.println("approx time to connect " + (ms2 - ms1) + " ms");
+
+			
+			ms1 = System.currentTimeMillis();
 			String sql = "select * from product";
 			PreparedStatement st = conn.prepareStatement(sql);
+			ms2 = System.currentTimeMillis();
+			System.out.println("approx time to prepare query " + (ms2 - ms1) + " ms");
+
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
 				Product product = new Product();
