@@ -9,9 +9,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @Entity
 @Table(name = "emp")
+@XmlRootElement(name = "emp")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Employee {
 
 	
@@ -23,6 +30,7 @@ public class Employee {
 	private double salary;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@XmlJavaTypeAdapter(value = LocalDateAdapter.class)
 	private LocalDate dateOfJoining;
 	
 	public int getEmpno() {
@@ -48,6 +56,16 @@ public class Employee {
 	}
 	public void setDateOfJoining(LocalDate dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
+	}
+	
+	public static class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
+	    public LocalDate unmarshal(String v) throws Exception {
+	        return LocalDate.parse(v);
+	    }
+
+	    public String marshal(LocalDate v) throws Exception {
+	        return v.toString();
+	    }
 	}
 	
 }
