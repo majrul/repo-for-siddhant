@@ -10,7 +10,7 @@
         <key-type>java.lang.Integer</key-type>
         <value-type>java.util.List</value-type>
         <expiry>
-            <ttl unit="seconds">30</ttl>
+            <ttl unit="seconds">60</ttl>
         </expiry>
 
         <resources>
