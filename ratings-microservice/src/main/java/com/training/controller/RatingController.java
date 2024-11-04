@@ -1,5 +1,6 @@
 package com.training.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,10 @@ public class RatingController {
     @GetMapping("/rating/{productId}")
     public List<Rating> get(@PathVariable int productId) {
         return ratingService.fetch(productId);
+    }
+
+    @GetMapping("/rating/{productId}/{date}")
+    public List<Rating> get(@PathVariable int productId, @PathVariable LocalDate date) {
+        return ratingService.fetch(productId, date);
     }
 }

@@ -1,5 +1,6 @@
 package com.training.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,13 @@ public class RatingService {
         ratingRepository.save(rating);
     }
 
-    //@Cacheable(value = "ratings.cache", key = "#productId")
+    @Cacheable(value = "ratings.cache", key = "#productId")
     public List<Rating> fetch(int productId) {
+        return ratingRepository.findByProductId(productId);
+    }
+
+    @Cacheable(value = "ratings2.cache")
+    public List<Rating> fetch(int productId, LocalDate date) {
         return ratingRepository.findByProductId(productId);
     }
 }
